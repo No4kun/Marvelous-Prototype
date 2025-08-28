@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marvelous Learning Platform - 数学・物理学の探究</title>
-    <link rel="stylesheet" href="platform-styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/platform-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -91,14 +91,21 @@
             </div>
             
             <div class="hero-visual">
-                <div class="visual-container">
-                    <canvas id="hero-canvas" width="500" height="400"></canvas>
-                    <div class="visual-overlay">
-                        <div class="floating-formula" style="top: 20%; left: 10%;">
-                            <span>Av = λv</span>
+                <div class="hero-canvas-container">
+                    <canvas id="hero-canvas" class="hero-canvas" width="500" height="400"></canvas>
+                    <div class="floating-elements">
+                        <div class="floating-icon" style="top: 20%; left: 10%;">
+                            <i class="fas fa-infinity"></i>
                         </div>
-                        <div class="floating-formula" style="top: 60%; right: 15%;">
-                            <span>F = ma</span>
+                        <div class="floating-icon" style="top: 60%; right: 15%;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="floating-icon" style="bottom: 30%; left: 20%;">
+                            <i class="fas fa-wave-square"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
                         </div>
                         <div class="floating-formula" style="bottom: 30%; left: 20%;">
                             <span>∇²φ = 4πGρ</span>
@@ -477,6 +484,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="platform-script.js"></script>
+    <script src="assets/platform-script.js"></script>
 </body>
 </html>

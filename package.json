@@ -1,0 +1,48 @@
+{
+  "name": "marvelous-learning-platform",
+  "version": "1.0.0",
+  "description": "Interactive learning platform for mathematics and physics with advanced visualizations",
+  "main": "dist/platform/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "dev": "concurrently \"npm run build:watch\" \"npm run serve\"",
+    "serve": "http-server public -p 3000 -o",
+    "lint": "eslint src --ext .ts,.js",
+    "lint:fix": "eslint src --ext .ts,.js --fix",
+    "format": "prettier --write \"src/**/*.{ts,js,json}\"",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "start": "npm run serve"
+  },
+  "keywords": [
+    "education",
+    "mathematics",
+    "physics",
+    "visualization",
+    "interactive-learning",
+    "typescript",
+    "canvas",
+    "mathjax"
+  ],
+  "author": "Marvelous Learning Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "http-server": "^14.1.1",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "mathjax": "^3.2.2"
+  }
+}
