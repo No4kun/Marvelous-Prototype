@@ -7,12 +7,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="course-navigation.css">
     <link rel="stylesheet" href="basis-transformation.css">
 </head>
 <body>
     <header>
-        <h1>🔄 基底変換と表現行列</h1>
-        <h2>線形写像の本質を視覚的に理解する</h2>
+        <div class="header-nav">
+            <button class="home-btn" onclick="window.location.href='index.html'" title="ホームページに戻る">
+                <i class="fas fa-home"></i>
+                <span>ホーム</span>
+            </button>
+            <div class="course-info">
+                <h1>🔄 基底変換と表現行列</h1>
+                <h2>線形写像の本質を視覚的に理解する</h2>
+            </div>
+            <div class="header-actions">
+                <button class="pause-btn" onclick="pauseLearning()" title="学習を一時停止">
+                    <i class="fas fa-pause"></i>
+                    <span>一時停止</span>
+                </button>
+            </div>
+        </div>
         <div class="progress-container">
             <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
@@ -446,6 +462,131 @@
     <footer>
         <p>© 2025 Marvelous Learning Platform - 基底変換と線形写像の探求</p>
     </footer>
+
+    <!-- ナビゲーション用の追加JavaScript -->
+    <script>
+        // 学習一時停止機能
+        function pauseLearning() {
+            // 現在の進捗を保存
+            const currentProgress = getCurrentProgress();
+            localStorage.setItem('basis_transformation_progress', JSON.stringify({
+                section: currentProgress.section,
+                progress: currentProgress.progress,
+                timestamp: Date.now()
+            }));
+            
+            // 確認ダイアログを表示
+            if (confirm('学習を一時停止してホームページに戻りますか？\n\n現在の進捗は自動的に保存されます。')) {
+                // ホームページへリダイレクト
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // 現在の進捗を取得する関数
+        function getCurrentProgress() {
+            const activeSection = document.querySelector('.nav-btn.active');
+            const progressFill = document.getElementById('progress-fill');
+            
+            return {
+                section: activeSection ? activeSection.getAttribute('data-section') : '0',
+                progress: progressFill ? progressFill.style.width : '0%'
+            };
+        }
+        
+        // ページ読み込み時に保存された進捗を復元
+        function restoreProgress() {
+            const savedProgress = localStorage.getItem('basis_transformation_progress');
+            if (savedProgress) {
+                try {
+                    const progress = JSON.parse(savedProgress);
+                    // 24時間以内のデータのみ復元
+                    if (Date.now() - progress.timestamp < 24 * 60 * 60 * 1000) {
+                        const section = progress.section;
+                        const progressPercentage = progress.progress;
+                        
+                        // 進捗復元の通知
+                        if (confirm('前回の学習の続きから始めますか？')) {
+                            // セクションを復元
+                            if (window.showSection) {
+                                showSection(parseInt(section));
+                            }
+                            
+                            // 進捗バーを復元
+                            const progressFill = document.getElementById('progress-fill');
+                            if (progressFill) {
+                                progressFill.style.width = progressPercentage;
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.log('進捗復元エラー:', e);
+                }
+            }
+        }
+        
+        // ホームページからの来訪を検出
+        function checkReferrer() {
+            if (document.referrer.includes('index.html') || document.referrer.endsWith('/')) {
+                // ホームページから来た場合、ウェルカムメッセージを表示
+                setTimeout(() => {
+                    showWelcomeMessage();
+                }, 1000);
+            }
+        }
+        
+        // ウェルカムメッセージ表示
+        function showWelcomeMessage() {
+            const toast = document.createElement('div');
+            toast.className = 'welcome-toast';
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="toast-text">
+                        <strong>基底変換講座へようこそ！</strong>
+                        <p>いつでも左上の「ホーム」ボタンで戻れます</p>
+                    </div>
+                </div>
+            `;
+            
+            toast.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: white;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                max-width: 320px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // アニメーション
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // 自動削除
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 4000);
+        }
+        
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            checkReferrer();
+            restoreProgress();
+        });
+    </script>
 
     <script src="basis-transformation.js"></script>
 </body>

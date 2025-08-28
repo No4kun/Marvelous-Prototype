@@ -7,12 +7,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="course-navigation.css">
     <link rel="stylesheet" href="eigenvalues-and-eigenvectors.css">
 </head>
 <body>
     <header>
-        <h1>🎯 Marvelous Learning Platform</h1>
-        <h2>固有値・固有ベクトルと線形変換の深層理解</h2>
+        <div class="header-nav">
+            <button class="home-btn" onclick="window.location.href='index.html'" title="ホームページに戻る">
+                <i class="fas fa-home"></i>
+                <span>ホーム</span>
+            </button>
+            <div class="course-info">
+                <h1>🎯 Marvelous Learning Platform</h1>
+                <h2>固有値・固有ベクトルと線形変換の深層理解</h2>
+            </div>
+            <div class="header-actions">
+                <button class="pause-btn" onclick="pauseLearning()" title="学習を一時停止">
+                    <i class="fas fa-pause"></i>
+                    <span>一時停止</span>
+                </button>
+            </div>
+        </div>
     </header>
 
     <nav class="topic-nav">
@@ -270,6 +286,39 @@
     <footer>
         <p>© 2025 Marvelous Learning Platform - 高度な数学・物理学習のために</p>
     </footer>
+
+    <!-- ナビゲーション用JavaScript -->
+    <script>
+        function pauseLearning() {
+            if (confirm('学習を一時停止してホームページに戻りますか？')) {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.referrer.includes('index.html') || document.referrer.endsWith('/')) {
+                setTimeout(() => {
+                    const toast = document.createElement('div');
+                    toast.className = 'welcome-toast';
+                    toast.innerHTML = `
+                        <div class="toast-content">
+                            <i class="fas fa-calculator"></i>
+                            <div class="toast-text">
+                                <strong>固有値・固有ベクトル講座へようこそ！</strong>
+                                <p>左上のホームボタンでいつでも戻れます</p>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+                    setTimeout(() => {
+                        toast.style.transform = 'translateX(100%)';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 4000);
+                }, 1000);
+            }
+        });
+    </script>
 
     <script src="eigenvalues-and-eigenvectors.js"></script>
 </body>

@@ -7,16 +7,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="course-navigation.css">
     <link rel="stylesheet" href="celestial-mechanics.css">
 </head>
 <body>
     <header>
-        <h1>🌟 Marvelous Learning Platform</h1>
-        <h2>天体力学とケプラーの法則</h2>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill"></div>
+        <div class="header-nav">
+            <button class="home-btn" onclick="window.location.href='index.html'" title="ホームページに戻る">
+                <i class="fas fa-home"></i>
+                <span>ホーム</span>
+            </button>
+            <div class="course-info">
+                <h1>🌟 Marvelous Learning Platform</h1>
+                <h2>天体力学とケプラーの法則</h2>
+            </div>
+            <div class="header-actions">
+                <button class="pause-btn" onclick="pauseLearning()" title="学習を一時停止">
+                    <i class="fas fa-pause"></i>
+                    <span>一時停止</span>
+                </button>
+            </div>
         </div>
-        <p class="progress-text">進捗: <span id="progress-text">1/8</span> セクション完了</p>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-text">進捗: <span id="progress-text">1/8</span> セクション完了</p>
+        </div>
     </header>
 
     <nav class="section-nav">
@@ -774,6 +792,45 @@
     <footer>
         <p>© 2025 Marvelous Learning Platform - 宇宙の法則を理解する旅</p>
     </footer>
+
+    <!-- ナビゲーション用JavaScript -->
+    <script>
+        function pauseLearning() {
+            // 現在の進捗を保存
+            const currentSection = document.querySelector('.section-btn.active');
+            if (currentSection) {
+                localStorage.setItem('celestial_mechanics_progress', currentSection.getAttribute('data-section'));
+            }
+            
+            if (confirm('学習を一時停止してホームページに戻りますか？\n\n現在の進捗は自動的に保存されます。')) {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.referrer.includes('index.html') || document.referrer.endsWith('/')) {
+                setTimeout(() => {
+                    const toast = document.createElement('div');
+                    toast.className = 'welcome-toast';
+                    toast.innerHTML = `
+                        <div class="toast-content">
+                            <i class="fas fa-satellite"></i>
+                            <div class="toast-text">
+                                <strong>天体力学講座へようこそ！</strong>
+                                <p>宇宙の法則を一緒に探求しましょう</p>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+                    setTimeout(() => {
+                        toast.style.transform = 'translateX(100%)';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 4000);
+                }, 1000);
+            }
+        });
+    </script>
 
     <script src="celestial-mechanics.js"></script>
 </body>
