@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvelous Learning Platform - 数学・物理学の探究</title>
+    <link rel="stylesheet" href="platform-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Marvelous Learning</h1>
+                        <span class="tagline">数学・物理学の美しい世界へ</span>
+                    </div>
+                </div>
+                
+                <div class="nav-menu">
+                    <a href="#linear-algebra" class="nav-link">
+                        <i class="fas fa-calculator"></i>
+                        線形代数
+                    </a>
+                    <a href="#mechanics" class="nav-link">
+                        <i class="fas fa-globe"></i>
+                        力学
+                    </a>
+                    <a href="#about" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        について
+                    </a>
+                </div>
+                
+                <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+            <div class="hero-wave"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2 class="hero-title">
+                    <span class="highlight">数学</span>と<span class="highlight">物理学</span>の
+                    <br>インタラクティブ学習プラットフォーム
+                </h2>
+                <p class="hero-description">
+                    視覚的で直感的な学習体験を通じて、抽象的な概念を具体的に理解しましょう。
+                    <br>最先端の可視化技術で、数学と物理の美しさを発見してください。
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">開講中講座</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">学習の可能性</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">インタラクティブ</div>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="#courses" class="cta-button primary">
+                        <i class="fas fa-play"></i>
+                        学習を始める
+                    </a>
+                    <a href="#about" class="cta-button secondary">
+                        <i class="fas fa-info-circle"></i>
+                        詳細を見る
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="visual-container">
+                    <canvas id="hero-canvas" width="500" height="400"></canvas>
+                    <div class="visual-overlay">
+                        <div class="floating-formula" style="top: 20%; left: 10%;">
+                            <span>Av = λv</span>
+                        </div>
+                        <div class="floating-formula" style="top: 60%; right: 15%;">
+                            <span>F = ma</span>
+                        </div>
+                        <div class="floating-formula" style="bottom: 30%; left: 20%;">
+                            <span>∇²φ = 4πGρ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">開講中の講座</h2>
+                <p class="section-subtitle">各分野の専門講座で深く学びましょう</p>
+            </div>
+
+            <!-- Linear Algebra Section -->
+            <div id="linear-algebra" class="subject-section">
+                <div class="subject-header">
+                    <div class="subject-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="subject-info">
+                        <h3 class="subject-title">線形代数</h3>
+                        <p class="subject-description">ベクトル空間、行列、固有値などの基礎理論をインタラクティブに学習</p>
+                    </div>
+                    <div class="subject-badge">
+                        <span>2講座</span>
+                    </div>
+                </div>
+                
+                <div class="courses-grid">
+                    <div class="course-card" data-course="eigenvalues" data-url="eigenvalues-and-eigenvectors.html">
+                        <div class="card-header">
+                            <div class="card-icon eigenvalues">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="card-badge">基礎</div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">固有値・固有ベクトル</h4>
+                            <p class="card-description">
+                                行列の固有値と固有ベクトルの概念を視覚的に理解し、
+                                対角化の美しい理論を探究します。
+                            </p>
+                            <div class="card-features">
+                                <span class="feature-tag">
+                                    <i class="fas fa-eye"></i>
+                                    可視化デモ
+                                </span>
+                                <span class="feature-tag">
+                                    <i class="fas fa-calculator"></i>
+                                    計算演習
+                                </span>
+                                <span class="feature-tag">
+                                    <i class="fas fa-lightbulb"></i>
+                                    応用例
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="progress-info">
+                                <span class="progress-label">推定学習時間</span>
+                                <span class="progress-value">45分</span>
+                            </div>
+                            <div class="launch-button">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-course="basis" data-url="basis-transformation.html">
+                        <div class="card-header">
+                            <div class="card-icon basis">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="card-badge">応用</div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">基底変換</h4>
+                            <p class="card-description">
+                                ベクトル空間の基底変換と表現行列について学び、
+                                同一ベクトルの異なる表現を理解します。
+                            </p>
+                            <div class="card-features">
+                                <span class="feature-tag">
+                                    <i class="fas fa-cube"></i>
+                                    3D可視化
+                                </span>
+                                <span class="feature-tag">
+                                    <i class="fas fa-gamepad"></i>
+                                    チャレンジ
+                                </span>
+                                <span class="feature-tag">
+                                    <i class="fas fa-chart-line"></i>
+                                    アニメーション
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="progress-info">
+                                <span class="progress-label">推定学習時間</span>
+                                <span class="progress-value">60分</span>
+                            </div>
+                            <div class="launch-button">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mechanics Section -->
+            <div id="mechanics" class="subject-section">
+                <div class="subject-header">
+                    <div class="subject-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="subject-info">
+                        <h3 class="subject-title">力学</h3>
+                        <p class="subject-description">古典力学から天体力学まで、物理現象の数学的記述を学習</p>
+                    </div>
+                    <div class="subject-badge">
+                        <span>1講座</span>
+                    </div>
+                </div>
+                
+                <div class="courses-grid">
+                    <div class="course-card featured" data-course="celestial" data-url="celestial-mechanics.html">
+                        <div class="card-header">
+                            <div class="card-icon celestial">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <div class="card-badge featured">人気</div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">天体力学の基礎</h4>
+                            <p class="card-description">
+                                ケプラーの法則から始まり、惑星の軌道運動、
+                                重力相互作用を数学的に探究します。
+                            </p>
+                            <div class="card-features">
+                                <span class="feature-tag">
+                                    <i class="fas fa-rocket"></i>
+                                    軌道シミュレーション
+                                </span>
+                                <span class="feature-tag">
+                                    <i class="fas fa-moon"></i>
+                                    惑星モデル
+                                </span>
+                                <span class="feature-tag">
+                                    <i class="fas fa-infinity"></i>
+                                    ケプラー法則
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="progress-info">
+                                <span class="progress-label">推定学習時間</span>
+                                <span class="progress-value">75分</span>
+                            </div>
+                            <div class="launch-button">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coming Soon Card -->
+                    <div class="course-card coming-soon">
+                        <div class="card-header">
+                            <div class="card-icon coming">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="card-badge">近日公開</div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">流体力学入門</h4>
+                            <p class="card-description">
+                                連続体の運動を記述する偏微分方程式と、
+                                ナビエ・ストークス方程式の基礎を学習予定。
+                            </p>
+                            <div class="card-features">
+                                <span class="feature-tag disabled">
+                                    <i class="fas fa-water"></i>
+                                    流体シミュレーション
+                                </span>
+                                <span class="feature-tag disabled">
+                                    <i class="fas fa-wind"></i>
+                                    ベクトル場
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="progress-info">
+                                <span class="progress-label">開発中</span>
+                                <span class="progress-value">準備中</span>
+                            </div>
+                            <div class="launch-button disabled">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">学習プラットフォームの特徴</h2>
+                <p class="section-subtitle">最新技術を活用した革新的な学習体験</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4 class="feature-title">高品質可視化</h4>
+                    <p class="feature-description">
+                        抽象的な数学概念を美しいアニメーションと
+                        インタラクティブな図表で直感的に理解
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h4 class="feature-title">体験型学習</h4>
+                    <p class="feature-description">
+                        パラメータを調整して即座に結果を確認。
+                        能動的な学習で理解を深めます
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="feature-title">段階的習熟</h4>
+                    <p class="feature-description">
+                        基礎から応用まで体系的に構成された
+                        カリキュラムで確実にスキルアップ
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4 class="feature-title">マルチデバイス対応</h4>
+                    <p class="feature-description">
+                        PC、タブレット、スマートフォンで
+                        どこでも快適に学習できます
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="about-title">Marvelous Learning Platformについて</h2>
+                    <p class="about-description">
+                        私たちは、数学と物理学の美しさを多くの人に伝えることを使命としています。
+                        従来の教科書やスライドでは表現しきれない動的な概念を、
+                        最新のWeb技術を駆使して視覚化し、直感的な理解を促進します。
+                    </p>
+                    
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>直感的理解を重視した教育設計</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-code"></i>
+                            <span>最新Web技術による高品質実装</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-users"></i>
+                            <span>学習者中心のユーザーエクスペリエンス</span>
+                        </div>
+                    </div>
+                    
+                    <div class="about-actions">
+                        <a href="#courses" class="btn-link">
+                            講座を探索 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="about-visual">
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <i class="fab fa-html5"></i>
+                            <span>HTML5</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-css3-alt"></i>
+                            <span>CSS3</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-js-square"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Canvas API</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-square-root-alt"></i>
+                            <span>MathJax</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-atom"></i>
+                        <span>Marvelous Learning</span>
+                    </div>
+                    <p class="footer-description">
+                        数学と物理学の美しい世界を、
+                        インタラクティブな学習体験でお届けします。
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">講座一覧</h4>
+                    <ul class="footer-links">
+                        <li><a href="eigenvalues-and-eigenvectors.html">固有値・固有ベクトル</a></li>
+                        <li><a href="basis-transformation.html">基底変換</a></li>
+                        <li><a href="celestial-mechanics.html">天体力学の基礎</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">技術情報</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">プラットフォームについて</a></li>
+                        <li><a href="#">技術仕様</a></li>
+                        <li><a href="#">アクセシビリティ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2024 Marvelous Learning Platform. 学習の旅をサポートします。</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="platform-script.js"></script>
+</body>
+</html>

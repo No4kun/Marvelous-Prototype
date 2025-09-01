@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvelous Learning - 天体力学の探求</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="course-navigation.css">
+    <link rel="stylesheet" href="celestial-mechanics.css">
+</head>
+<body>
+    <header>
+        <div class="header-nav">
+            <button class="home-btn" onclick="window.location.href='index.html'" title="ホームページに戻る">
+                <i class="fas fa-home"></i>
+                <span>ホーム</span>
+            </button>
+            <div class="course-info">
+                <h1>🌟 Marvelous Learning Platform</h1>
+                <h2>天体力学とケプラーの法則</h2>
+            </div>
+            <div class="header-actions">
+                <button class="pause-btn" onclick="pauseLearning()" title="学習を一時停止">
+                    <i class="fas fa-pause"></i>
+                    <span>一時停止</span>
+                </button>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-text">進捗: <span id="progress-text">1/8</span> セクション完了</p>
+        </div>
+    </header>
+
+    <nav class="section-nav">
+        <button class="section-btn active" data-section="0" id="nav-0">
+            <span class="section-number">1</span>
+            <span class="section-title">導入</span>
+        </button>
+        <button class="section-btn locked" data-section="1" id="nav-1">
+            <span class="section-number">2</span>
+            <span class="section-title">観測の歴史</span>
+        </button>
+        <button class="section-btn locked" data-section="2" id="nav-2">
+            <span class="section-number">3</span>
+            <span class="section-title">第一法則</span>
+        </button>
+        <button class="section-btn locked" data-section="3" id="nav-3">
+            <span class="section-number">4</span>
+            <span class="section-title">第二法則</span>
+        </button>
+        <button class="section-btn locked" data-section="4" id="nav-4">
+            <span class="section-number">5</span>
+            <span class="section-title">第三法則</span>
+        </button>
+        <button class="section-btn locked" data-section="5" id="nav-5">
+            <span class="section-number">6</span>
+            <span class="section-title">万有引力</span>
+        </button>
+        <button class="section-btn locked" data-section="6" id="nav-6">
+            <span class="section-number">7</span>
+            <span class="section-title">軌道計算</span>
+        </button>
+        <button class="section-btn locked" data-section="7" id="nav-7">
+            <span class="section-number">8</span>
+            <span class="section-title">総合演習</span>
+        </button>
+    </nav>
+
+    <main>
+        <!-- セクション0: 導入 -->
+        <section id="section-0" class="content-section active">
+            <div class="section-header">
+                <h3>🌍 天体力学への招待</h3>
+                <p class="section-subtitle">宇宙の法則を数学で理解する</p>
+            </div>
+
+            <div class="content-card">
+                <h4>なぜ惑星は落ちないのか？</h4>
+                <p>地球は時速10万kmで太陽の周りを回り続けています。なぜ太陽に落下せず、なぜ宇宙に飛び去らないのでしょうか？</p>
+                
+                <div class="interactive-demo" id="intro-demo">
+                    <div id="intro-animation" class="animation-container"></div>
+                    <p>上のアニメーションは地球の軌道を表しています。クリックして観察してみましょう。</p>
+                </div>
+
+                <div class="insight-box">
+                    <h5>💡 重要な洞察</h5>
+                    <p>惑星の運動は、<strong>万有引力</strong>と<strong>慣性</strong>の絶妙なバランスによって成り立っています。この美しい調和を、17世紀の天才たちが数学的に解明しました。</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>学習の目標</h4>
+                <div class="goals-grid">
+                    <div class="goal-item">
+                        <span class="goal-icon">📐</span>
+                        <div>
+                            <h6>ケプラーの三法則の理解</h6>
+                            <p>惑星運動の基本法則を数学的に理解する</p>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <span class="goal-icon">🍎</span>
+                        <div>
+                            <h6>万有引力の法則</h6>
+                            <p>ニュートンの重力理論の導出と応用</p>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <span class="goal-icon">🧮</span>
+                        <div>
+                            <h6>軌道計算の基礎</h6>
+                            <p>実際の天体の軌道を計算する方法</p>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <span class="goal-icon">🚀</span>
+                        <div>
+                            <h6>現代への応用</h6>
+                            <p>人工衛星や宇宙探査への活用</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-card">
+                <h4>理解度チェック</h4>
+                <p>太陽系の惑星について、どれが正しいでしょうか？</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="intro-quiz" value="A">
+                        <span>すべての惑星は完全な円軌道を描く</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="intro-quiz" value="correct">
+                        <span>太陽に近い惑星ほど公転周期が短い</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="intro-quiz" value="C">
+                        <span>惑星の質量が大きいほど公転速度が速い</span>
+                    </label>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(0, 'correct')">回答する</button>
+                <div class="quiz-feedback" id="quiz-feedback-0"></div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeSection(0)">次のセクションへ 🚀</button>
+            </div>
+        </section>
+
+        <!-- セクション1: 観測の歴史 -->
+        <section id="section-1" class="content-section">
+            <div class="section-header">
+                <h3>🔭 天体観測の歴史</h3>
+                <p class="section-subtitle">古代から近世までの発見の軌跡</p>
+            </div>
+
+            <div class="content-card">
+                <h4>古代の宇宙観</h4>
+                
+                <div class="interactive-demo">
+                    <h5>🌌 宇宙観の変遷</h5>
+                    <div id="cosmology-demo" class="animation-container"></div>
+                    <div class="controls">
+                        <button onclick="toggleCosmologyModel()">天動説 ⇄ 地動説</button>
+                        <p id="model-description">天動説: 地球を中心に天体が回転</p>
+                    </div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h6>紀元前4世紀 - アリストテレス</h6>
+                            <p>地球中心説（天動説）を確立。完全な円運動を仮定。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h6>紀元前3世紀 - アリスタルコス</h6>
+                            <p>太陽中心説を提唱するも、受け入れられず。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h6>2世紀 - プトレマイオス</h6>
+                            <p>周転円理論で惑星の複雑な動きを説明。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>コペルニクス革命</h4>
+                <div class="comparison-box">
+                    <div class="comparison-item">
+                        <h6>🌍 天動説（プトレマイオス）</h6>
+                        <div class="model-visualization" id="geocentric-model"></div>
+                        <ul>
+                            <li>地球が宇宙の中心</li>
+                            <li>複雑な周転円で説明</li>
+                            <li>計算が困難</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <h6>☀️ 地動説（コペルニクス）</h6>
+                        <div class="model-visualization" id="heliocentric-model"></div>
+                        <ul>
+                            <li>太陽が宇宙の中心</li>
+                            <li>シンプルな円軌道</li>
+                            <li>数学的に美しい</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-card">
+                <h4>理解度チェック</h4>
+                <p>コペルニクスの地動説の最大の利点は何でしたか？</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="history-quiz" value="A">
+                        <span>観測精度の向上</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="history-quiz" value="correct">
+                        <span>計算の簡素化</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="history-quiz" value="C">
+                        <span>宗教的受容性</span>
+                    </label>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(1, 'correct')">回答する</button>
+                <div class="quiz-feedback" id="quiz-feedback-1"></div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeSection(1)">次のセクションへ 🚀</button>
+            </div>
+        </section>
+
+        <!-- セクション2: ケプラーの第一法則 -->
+        <section id="section-2" class="content-section">
+            <div class="section-header">
+                <h3>🥚 ケプラーの第一法則</h3>
+                <p class="section-subtitle">惑星軌道は楕円である</p>
+            </div>
+
+            <div class="content-card">
+                <h4>円から楕円への発見</h4>
+                <p>ケプラーは師匠ティコ・ブラーエの精密な観測データを分析し、火星の軌道が完全な円ではないことを発見しました。</p>
+                
+                <div class="law-statement">
+                    <h5>📐 ケプラーの第一法則</h5>
+                    <p><strong>惑星は太陽を一つの焦点とする楕円軌道を描く</strong></p>
+                </div>
+
+                <div class="interactive-demo">
+                    <div id="ellipse-demo" class="animation-container"></div>
+                    <div class="controls">
+                        <label>離心率 e: <span id="eccentricity-value">0.2</span></label>
+                        <input type="range" id="eccentricity-slider" min="0" max="0.9" step="0.1" value="0.2">
+                    </div>
+                    <p>スライダーで離心率を変更して、楕円の形を観察してみましょう。</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>楕円の数学</h4>
+                <div class="math-explanation">
+                    <p>楕円は以下の式で表されます：</p>
+                    <div class="math-center">
+                        \[\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1\]
+                    </div>
+                    <p>ここで：</p>
+                    <ul>
+                        <li><strong>a</strong>: 長半軸（軌道の最大半径）</li>
+                        <li><strong>b</strong>: 短半軸（軌道の最小半径）</li>
+                        <li><strong>e</strong>: 離心率 = √(1 - b²/a²)</li>
+                    </ul>
+                </div>
+
+                <div class="calculation-box">
+                    <h5>🧮 計算練習</h5>
+                    <p>地球の軌道：a = 1.496 × 10⁸ km, e = 0.0167</p>
+                    <p>地球の近日点距離を計算してみましょう：</p>
+                    <div class="math-center">
+                        \[r_{min} = a(1 - e) = ?\]
+                    </div>
+                    <input type="number" id="earth-calculation" placeholder="答え（10⁸ km単位）">
+                    <button onclick="checkCalculation('earth-calculation', 1.471)">計算結果をチェック</button>
+                    <div id="calc-feedback-earth" class="calc-feedback"></div>
+                </div>
+            </div>
+
+            <div class="quiz-card">
+                <h4>理解度チェック</h4>
+                <p>離心率 e = 0 の軌道はどのような形でしょうか？</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="ellipse-quiz" value="correct">
+                        <span>完全な円</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="ellipse-quiz" value="B">
+                        <span>放物線</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="ellipse-quiz" value="C">
+                        <span>双曲線</span>
+                    </label>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(2, 'correct')">回答する</button>
+                <div class="quiz-feedback" id="quiz-feedback-2"></div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeSection(2)">次のセクションへ 🚀</button>
+            </div>
+        </section>
+
+        <!-- セクション3: ケプラーの第二法則 -->
+        <section id="section-3" class="content-section">
+            <div class="section-header">
+                <h3>⏱️ ケプラーの第二法則</h3>
+                <p class="section-subtitle">面積速度一定の法則</p>
+            </div>
+
+            <div class="content-card">
+                <h4>面積速度の発見</h4>
+                <div class="law-statement">
+                    <h5>📐 ケプラーの第二法則</h5>
+                    <p><strong>惑星と太陽を結ぶ直線が等しい時間に描く面積は等しい</strong></p>
+                </div>
+
+                <div class="interactive-demo">
+                    <div id="area-demo" class="animation-container"></div>
+                    <button onclick="startAreaAnimation()">面積の変化を観察</button>
+                    <p>惑星が近日点と遠日点でどのように動くか観察してみましょう。</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>角運動量保存則</h4>
+                <p>第二法則は物理学の角運動量保存則と同等です：</p>
+                <div class="math-center">
+                    \[L = mr^2\omega = \text{一定}\]
+                </div>
+                <div class="math-center">
+                    \[\frac{dA}{dt} = \frac{1}{2}r^2\omega = \frac{L}{2m} = \text{一定}\]
+                </div>
+
+                <div class="insight-box">
+                    <h5>💡 物理的意味</h5>
+                    <p>惑星は近日点で速く、遠日点で遅く動きます。これは重力による位置エネルギーと運動エネルギーの変換によるものです。</p>
+                </div>
+            </div>
+
+            <div class="calculation-box">
+                <h5>🧮 速度の計算</h5>
+                <p>地球の軌道データ：</p>
+                <ul>
+                    <li>近日点距離：1.471 × 10⁸ km</li>
+                    <li>遠日点距離：1.521 × 10⁸ km</li>
+                    <li>近日点速度：30.29 km/s</li>
+                </ul>
+                <p>遠日点での速度を計算してください：</p>
+                <div class="math-center">
+                    \[v_1 r_1 = v_2 r_2\]
+                </div>
+                <input type="number" id="velocity-calculation" placeholder="答え（km/s）" step="0.01">
+                <button onclick="checkCalculation('velocity-calculation', 29.29)">計算結果をチェック</button>
+                <div id="calc-feedback-velocity" class="calc-feedback"></div>
+            </div>
+
+            <div class="quiz-card">
+                <h4>理解度チェック</h4>
+                <p>惑星が太陽に最も近い時、その速度は？</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="area-quiz" value="A">
+                        <span>最も遅い</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="area-quiz" value="correct">
+                        <span>最も速い</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="area-quiz" value="C">
+                        <span>一定</span>
+                    </label>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(3, 'correct')">回答する</button>
+                <div class="quiz-feedback" id="quiz-feedback-3"></div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeSection(3)">次のセクションへ 🚀</button>
+            </div>
+        </section>
+
+        <!-- セクション4: ケプラーの第三法則 -->
+        <section id="section-4" class="content-section">
+            <div class="section-header">
+                <h3>🔢 ケプラーの第三法則</h3>
+                <p class="section-subtitle">調和の法則</p>
+            </div>
+
+            <div class="content-card">
+                <h4>周期と軌道の関係</h4>
+                <div class="law-statement">
+                    <h5>📐 ケプラーの第三法則</h5>
+                    <p><strong>惑星の公転周期の2乗は、軌道長半軸の3乗に比例する</strong></p>
+                    <div class="math-center">
+                        \[T^2 \propto a^3\]
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <div id="third-law-demo" class="animation-container"></div>
+                    <div class="planet-selector">
+                        <button onclick="showPlanet('mercury')">水星</button>
+                        <button onclick="showPlanet('earth')">地球</button>
+                        <button onclick="showPlanet('mars')">火星</button>
+                        <button onclick="showPlanet('jupiter')">木星</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>太陽系のデータ</h4>
+                <div class="planet-data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>惑星</th>
+                                <th>軌道半径 (AU)</th>
+                                <th>公転周期 (年)</th>
+                                <th>T²/a³</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>水星</td>
+                                <td>0.39</td>
+                                <td>0.24</td>
+                                <td id="mercury-ratio">?</td>
+                            </tr>
+                            <tr>
+                                <td>地球</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td id="earth-ratio">?</td>
+                            </tr>
+                            <tr>
+                                <td>火星</td>
+                                <td>1.52</td>
+                                <td>1.88</td>
+                                <td id="mars-ratio">?</td>
+                            </tr>
+                            <tr>
+                                <td>木星</td>
+                                <td>5.20</td>
+                                <td>11.86</td>
+                                <td id="jupiter-ratio">?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button onclick="calculateRatios()">T²/a³ を計算</button>
+                </div>
+            </div>
+
+            <div class="calculation-box">
+                <h5>🧮 新惑星の発見</h5>
+                <p>ある小惑星が太陽から2.8 AU離れた軌道を回っています。その公転周期は？</p>
+                <div class="math-center">
+                    \[T = \sqrt{a^3} = \sqrt{(2.8)^3} = ?\]
+                </div>
+                <input type="number" id="asteroid-period" placeholder="答え（年）" step="0.1">
+                <button onclick="checkCalculation('asteroid-period', 4.68)">計算結果をチェック</button>
+                <div id="calc-feedback-asteroid" class="calc-feedback"></div>
+            </div>
+
+            <div class="quiz-card">
+                <h4>理解度チェック</h4>
+                <p>太陽から4倍遠い惑星の公転周期は、地球の何倍でしょうか？</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="third-law-quiz" value="A">
+                        <span>4倍</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="third-law-quiz" value="correct">
+                        <span>8倍</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="third-law-quiz" value="C">
+                        <span>16倍</span>
+                    </label>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(4, 'correct')">回答する</button>
+                <div class="quiz-feedback" id="quiz-feedback-4"></div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeSection(4)">次のセクションへ 🚀</button>
+            </div>
+        </section>
+
+        <!-- セクション5: ニュートンの万有引力の法則 -->
+        <section id="section-5" class="content-section">
+            <div class="section-header">
+                <h3>🍎 ニュートンの万有引力の法則</h3>
+                <p class="section-subtitle">ケプラーの法則の物理的基盤</p>
+            </div>
+
+            <div class="content-card">
+                <h4>万有引力の発見</h4>
+                <p>1687年、アイザック・ニュートンは『プリンキピア』において、なぜ惑星がケプラーの法則に従うのかを明らかにしました。</p>
+                
+                <div class="law-statement">
+                    <h5>万有引力の法則</h5>
+                    <p>質量を持つすべての物体は、お互いに引力を及ぼし合う</p>
+                    <div class="math-center">
+                        \[F = G \frac{m_1 m_2}{r^2}\]
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h5>💫 重力の可視化</h5>
+                    <div id="gravity-demo" class="animation-container"></div>
+                    <div class="controls">
+                        <div class="slider-group">
+                            <label>物体1の質量: <span id="mass1-display">5</span></label>
+                            <input type="range" id="mass1-slider" min="1" max="10" value="5">
+                        </div>
+                        <div class="slider-group">
+                            <label>物体2の質量: <span id="mass2-display">3</span></label>
+                            <input type="range" id="mass2-slider" min="1" max="10" value="3">
+                        </div>
+                        <div class="slider-group">
+                            <label>距離: <span id="distance-display">100</span></label>
+                            <input type="range" id="distance-slider" min="50" max="200" value="100">
+                        </div>
+                        <div id="force-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calculation-box">
+                <h5>🧮 重力計算</h5>
+                <p>地球と月の間の重力を計算してみましょう。</p>
+                <p>地球の質量: 5.97 × 10²⁴ kg, 月の質量: 7.35 × 10²² kg, 距離: 3.84 × 10⁸ m</p>
+                <input type="number" id="gravity-force" placeholder="答え（×10²⁰ N）" step="0.1">
+                <button onclick="checkCalculation('gravity-force', 1.98)">計算結果をチェック</button>
+                <div id="calc-feedback-gravity" class="calc-feedback"></div>
+            </div>
+
+            <div class="quiz-card">
+                <h4>理解度チェック</h4>
+                <p>距離が2倍になると、重力はどう変化しますか？</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="gravity-quiz" value="A">
+                        <span>2倍になる</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="gravity-quiz" value="B">
+                        <span>1/2になる</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="gravity-quiz" value="correct">
+                        <span>1/4になる</span>
+                    </label>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(5, 'correct')">回答する</button>
+                <div class="quiz-feedback" id="quiz-feedback-5"></div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeSection(5)">次のセクションへ 🚀</button>
+            </div>
+        </section>
+
+        <!-- セクション6: 軌道力学の基礎 -->
+        <section id="section-6" class="content-section">
+            <div class="section-header">
+                <h3>🛰️ 軌道力学の基礎</h3>
+                <p class="section-subtitle">人工衛星と宇宙探査への応用</p>
+            </div>
+
+            <div class="content-card">
+                <h4>軌道速度の計算</h4>
+                <p>物体が円軌道を維持するために必要な速度を求めてみましょう。</p>
+                
+                <div class="math-explanation">
+                    <h5>円軌道の条件</h5>
+                    <p>向心力 = 重力</p>
+                    <div class="math-center">
+                        \[\frac{mv^2}{r} = \frac{GMm}{r^2}\]
+                        \[v = \sqrt{\frac{GM}{r}}\]
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h5>🌍 地球周回軌道シミュレーション</h5>
+                    <div id="orbital-demo" class="animation-container"></div>
+                    <div class="controls">
+                        <button onclick="toggleOrbitSimulation()">シミュレーション開始/停止</button>
+                        <div class="slider-group">
+                            <label>軌道高度: <span id="altitude-display">400</span> km</label>
+                            <input type="range" id="altitude-slider" min="200" max="2000" value="400">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeSection(6)">次のセクションへ 🚀</button>
+            </div>
+        </section>
+
+        <!-- セクション7: 総合演習 -->
+        <section id="section-7" class="content-section">
+            <div class="section-header">
+                <h3>🎯 総合演習</h3>
+                <p class="section-subtitle">天体力学の理解度を確認しよう</p>
+            </div>
+
+            <div class="content-card">
+                <h4>📊 計算問題セット 1: 軌道要素の計算</h4>
+                
+                <div class="calculation-problem">
+                    <h5>問題1: 火星の軌道計算</h5>
+                    <p>火星の近日点距離が1.38 AU、遠日点距離が1.67 AUであるとき、軌道の長半径と離心率を計算せよ。</p>
+                    <div class="input-group">
+                        <label>長半径 a (AU):</label>
+                        <input type="number" id="mars-semimajor" step="0.01" placeholder="計算結果を入力">
+                    </div>
+                    <div class="input-group">
+                        <label>離心率 e:</label>
+                        <input type="number" id="mars-eccentricity" step="0.001" placeholder="計算結果を入力">
+                    </div>
+                    <button class="calculation-btn" onclick="checkMarsOrbit()">解答を確認</button>
+                    <div id="mars-orbit-result" class="calculation-result"></div>
+                </div>
+                
+                <div class="calculation-problem">
+                    <h5>問題2: 公転周期の予測</h5>
+                    <p>小惑星の軌道長半径が2.8 AUである場合、ケプラーの第三法則を用いて公転周期を計算せよ。</p>
+                    <div class="input-group">
+                        <label>公転周期 T (年):</label>
+                        <input type="number" id="asteroid-period" step="0.1" placeholder="計算結果を入力">
+                    </div>
+                    <button class="calculation-btn" onclick="checkAsteroidPeriod()">解答を確認</button>
+                    <div id="asteroid-period-result" class="calculation-result"></div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>⚡ 計算問題セット 2: 力と運動</h4>
+                
+                <div class="calculation-problem">
+                    <h5>問題3: 万有引力の計算</h5>
+                    <p>地球から月までの距離は約38万km、月の質量は7.35×10²²kg、地球の質量は5.97×10²⁴kgである。地球と月の間の万有引力を計算せよ。</p>
+                    <div class="input-group">
+                        <label>万有引力 F (×10²⁰ N):</label>
+                        <input type="number" id="earth-moon-force" step="0.01" placeholder="×10²⁰Nの係数を入力">
+                    </div>
+                    <button class="calculation-btn" onclick="checkEarthMoonForce()">解答を確認</button>
+                    <div id="earth-moon-force-result" class="calculation-result"></div>
+                </div>
+                
+                <div class="calculation-problem">
+                    <h5>問題4: 脱出速度の計算</h5>
+                    <p>地球の半径を6400km、質量を6.0×10²⁴kgとして、地球表面からの脱出速度を計算せよ。</p>
+                    <div class="input-group">
+                        <label>脱出速度 v (km/s):</label>
+                        <input type="number" id="escape-velocity" step="0.1" placeholder="計算結果を入力">
+                    </div>
+                    <button class="calculation-btn" onclick="checkEscapeVelocity()">解答を確認</button>
+                    <div id="escape-velocity-result" class="calculation-result"></div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>🎯 理論理解クイズ</h4>
+                
+                <div class="quiz-card">
+                    <h5>ケプラーの法則とニュートン力学</h5>
+                    <p>ケプラーの法則とニュートンの万有引力の法則の関係について、最も適切な記述を選べ。</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="unified-theory" value="A">
+                            <span>ケプラーの法則は万有引力の法則から独立に発見された実験的法則である</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="unified-theory" value="correct">
+                            <span>ケプラーの法則は万有引力の法則から数学的に導出できる</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="unified-theory" value="C">
+                            <span>両者は全く無関係な物理法則である</span>
+                        </label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(7, 'correct')">回答する</button>
+                    <div class="quiz-feedback" id="quiz-feedback-unified"></div>
+                </div>
+                
+                <div class="quiz-card">
+                    <h5>軌道エネルギーと軌道形状</h5>
+                    <p>楕円軌道、放物線軌道、双曲線軌道に関する記述として正しいものを選べ。</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="orbit-energy" value="A">
+                            <span>すべての軌道で全エネルギーは正の値である</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="orbit-energy" value="correct">
+                            <span>楕円軌道では負、放物線軌道では零、双曲線軌道では正の全エネルギーを持つ</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="orbit-energy" value="C">
+                            <span>軌道の形状とエネルギーは無関係である</span>
+                        </label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(7, 'correct')">回答する</button>
+                    <div class="quiz-feedback" id="quiz-feedback-energy"></div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>🏆 最終チャレンジ</h4>
+                
+                <div class="calculation-problem">
+                    <h5>挑戦問題: ホーマン軌道</h5>
+                    <p>地球軌道（1 AU）から火星軌道（1.52 AU）への最も効率的な移動軌道（ホーマン移動軌道）の所要時間を計算せよ。</p>
+                    <div class="input-group">
+                        <label>移動時間 (日):</label>
+                        <input type="number" id="hohmann-time" step="1" placeholder="計算結果を入力">
+                    </div>
+                    <button class="calculation-btn" onclick="checkHohmannTime()">解答を確認</button>
+                    <div id="hohmann-time-result" class="calculation-result"></div>
+                </div>
+
+                <div class="quiz-card">
+                    <h5>総合問題</h5>
+                    <p>新しく発見された系外惑星が、恒星から地球-太陽間距離の0.5倍の距離を公転しています。この惑星の公転周期は地球の何倍でしょうか？</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-quiz" value="A">
+                            <span>0.25倍</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-quiz" value="correct">
+                            <span>0.35倍</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-quiz" value="C">
+                            <span>0.5倍</span>
+                        </label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(7, 'correct')">回答する</button>
+                    <div class="quiz-feedback" id="quiz-feedback-7"></div>
+                </div>
+
+                <div class="insight-box">
+                    <h5>🎉 おめでとうございます！</h5>
+                    <p>天体力学の基礎をマスターしました。ケプラーの三法則とニュートンの万有引力の法則は、現代の宇宙探査の基盤となっています。</p>
+                </div>
+            </div>
+
+            <div class="section-footer">
+                <button class="next-btn" onclick="completeCourse()">コース完了！ 🎊</button>
+            </div>
+        </section>
+
+        <!-- 他のセクションは続く... -->
+        
+    </main>
+
+    <footer>
+        <p>© 2025 Marvelous Learning Platform - 宇宙の法則を理解する旅</p>
+    </footer>
+
+    <!-- ナビゲーション用JavaScript -->
+    <script>
+        function pauseLearning() {
+            // 現在の進捗を保存
+            const currentSection = document.querySelector('.section-btn.active');
+            if (currentSection) {
+                localStorage.setItem('celestial_mechanics_progress', currentSection.getAttribute('data-section'));
+            }
+            
+            if (confirm('学習を一時停止してホームページに戻りますか？\n\n現在の進捗は自動的に保存されます。')) {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.referrer.includes('index.html') || document.referrer.endsWith('/')) {
+                setTimeout(() => {
+                    const toast = document.createElement('div');
+                    toast.className = 'welcome-toast';
+                    toast.innerHTML = `
+                        <div class="toast-content">
+                            <i class="fas fa-satellite"></i>
+                            <div class="toast-text">
+                                <strong>天体力学講座へようこそ！</strong>
+                                <p>宇宙の法則を一緒に探求しましょう</p>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+                    setTimeout(() => {
+                        toast.style.transform = 'translateX(100%)';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 4000);
+                }, 1000);
+            }
+        });
+    </script>
+
+    <script src="celestial-mechanics.js"></script>
+</body>
+</html>
